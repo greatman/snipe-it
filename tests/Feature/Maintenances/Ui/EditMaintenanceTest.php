@@ -22,6 +22,7 @@ class EditMaintenanceTest extends TestCase
     public function testCanUpdateMaintenance()
     {
         $actor = User::factory()->superuser()->create();
+        $userResponsible = User::factory()->create();
         $asset = Asset::factory()->create();
         $maintenance = Maintenance::factory()->create(['asset_id' => $asset]);
         $supplier = Supplier::factory()->create();
@@ -38,6 +39,7 @@ class EditMaintenanceTest extends TestCase
                 'image' => UploadedFile::fake()->image('test_image.png'),
                 'cost' => '100.99',
                 'notes' => 'A note',
+                'user_responsible_id' => $userResponsible->id,
             ])
             ->assertSessionHasNoErrors()
             ->assertRedirect(route('maintenances.index'));
@@ -59,6 +61,7 @@ class EditMaintenanceTest extends TestCase
             'asset_maintenance_time' => '9',
             'notes' => 'A note',
             'cost' => '100.99',
+            'user_responsible_id' => $userResponsible->id,
         ]);
 
         $this->assertHasTheseActionLogs($maintenance, ['create', 'update']);

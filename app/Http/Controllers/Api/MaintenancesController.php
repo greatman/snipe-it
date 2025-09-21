@@ -34,7 +34,7 @@ class MaintenancesController extends Controller
         $this->authorize('view', Asset::class);
 
         $maintenances = Maintenance::select('maintenances.*')
-            ->with('asset', 'asset.model', 'asset.location', 'asset.defaultLoc', 'supplier', 'asset.company',  'asset.assetstatus', 'adminuser');
+            ->with('asset', 'asset.model', 'asset.location', 'asset.defaultLoc', 'supplier', 'asset.company',  'asset.assetstatus', 'adminuser', 'userResponsible');
 
         if ($request->filled('search')) {
             $maintenances = $maintenances->TextSearch($request->input('search'));
@@ -54,6 +54,10 @@ class MaintenancesController extends Controller
 
         if ($request->filled('asset_maintenance_type')) {
             $maintenances->where('asset_maintenance_type', '=', $request->input('asset_maintenance_type'));
+        }
+
+        if ($request->filled('user_responsible_id')) {
+            $maintenances->where('user_responsible_id', '=', $request->input('user_responsible_id'));
         }
 
 
@@ -78,6 +82,7 @@ class MaintenancesController extends Controller
                                 'location',
                                 'is_warranty',
                                 'status_label',
+                                'user_responsible_id'
                             ];
 
         $order = $request->input('order') === 'asc' ? 'asc' : 'desc';

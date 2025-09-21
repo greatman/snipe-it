@@ -53,4 +53,5 @@ return [
     'all_assigned_list_generation' => 'Generated on:',
     'email_user_creds_on_create' => 'Email this user their credentials?',
     'department_manager' => 'Department Manager',
+    'maintenance_caused_by_user' => 'Maintenance caused by user',
 ];

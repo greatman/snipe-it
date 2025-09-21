@@ -31,6 +31,7 @@ class CreateMaintenanceTest extends TestCase
     {
         Storage::fake('public');
         $actor = User::factory()->superuser()->create();
+        $userResponsible = User::factory()->create();
         $asset = Asset::factory()->create();
         $supplier = Supplier::factory()->create();
 
@@ -46,6 +47,7 @@ class CreateMaintenanceTest extends TestCase
                 'cost' => '100.00',
                 'image' => UploadedFile::fake()->image('test_image.png'),
                 'notes' => 'A note',
+                'user_responsible_id' => $userResponsible->id,
             ])
             ->assertSessionHasNoErrors()
             ->assertRedirect(route('maintenances.index'));
@@ -70,6 +72,7 @@ class CreateMaintenanceTest extends TestCase
             'cost' => '100.00',
             'image' => $maintenance->image,
             'created_by' => $actor->id,
+            'user_responsible_id' => $userResponsible->id,
         ]);
 
         $this->assertHasTheseActionLogs($maintenance, ['create']);

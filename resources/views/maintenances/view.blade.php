@@ -115,6 +115,18 @@ use Carbon\Carbon;
                 </div>
               </div> <!-- /row -->
               @endif
+              @if ($maintenance->userResponsible)
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ trans('admin/maintenances/form.user_responsible') }}
+                    </div>
+                    <div class="col-md-9">
+                        <a href="{{ route('users.show', $maintenance->userResponsible->id) }}">
+                            {{ $maintenance->userResponsible->name }}
+                        </a>
+                    </div>
+                </div> <!-- /row -->
+                @endif
 
               <div class="row">
                 <div class="col-md-3">

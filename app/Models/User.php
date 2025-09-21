@@ -434,6 +434,19 @@ class User extends SnipeModel implements AuthenticatableContract, AuthorizableCo
     }
 
     /**
+     * Establishes the user -> maintenances relationship
+     *
+     * This would only be used to return maintenances that this user
+     * is responsible for.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function maintenanceCausedBy()
+    {
+        return $this->hasMany(\App\Models\Maintenance::class, 'user_responsible_id')->withTrashed();
+    }
+
+    /**
      * Establishes the user -> accessories relationship
      *
      * @author A. Gianotto <snipe@snipe.net>

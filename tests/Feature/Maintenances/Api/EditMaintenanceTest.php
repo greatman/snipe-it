@@ -24,6 +24,8 @@ class EditMaintenanceTest extends TestCase
     {
         Storage::fake('public');
         $actor = User::factory()->superuser()->create();
+        $userResponsible = User::factory()->create();
+
         $supplier = Supplier::factory()->create();
         $maintenance = Maintenance::factory()->create();
 
@@ -38,6 +40,7 @@ class EditMaintenanceTest extends TestCase
                 'is_warranty' => '1',
                 'image' => UploadedFile::fake()->image('test_image.png'),
                 'notes' => 'A note',
+                'user_responsible_id' => $userResponsible->id,
             ])
             ->assertOk();
 
@@ -58,6 +61,7 @@ class EditMaintenanceTest extends TestCase
             'asset_maintenance_time' => '9',
             'notes' => 'A note',
             'image' => $maintenance->image,
+            'user_responsible_id' => $userResponsible->id,
         ]);
 
         $this->assertHasTheseActionLogs($maintenance, ['create', 'update']);

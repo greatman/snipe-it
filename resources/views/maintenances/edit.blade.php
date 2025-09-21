@@ -105,7 +105,7 @@
 
 
         @include ('partials.forms.edit.maintenance_type')
-
+        @include ('partials.forms.edit.user-select', ['fieldname' => 'user_responsible_id', 'translated_name' => trans('admin/maintenances/table.user_responsible')] )
         <!-- Start Date -->
         <div class="form-group {{ $errors->has('start_date') ? ' has-error' : '' }}">
           <label for="start_date" class="col-md-3 control-label">

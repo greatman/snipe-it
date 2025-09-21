@@ -5,4 +5,5 @@
         'asset_name'    => 'Asset Name',
         'is_warranty'   => 'Warranty',
         'dl_csv'        => 'Download CSV',
+        'user_responsible' => 'User responsible',
     ];

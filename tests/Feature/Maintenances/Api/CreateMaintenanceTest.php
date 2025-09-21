@@ -27,6 +27,7 @@ class CreateMaintenanceTest extends TestCase
 
         Storage::fake('public');
         $actor = User::factory()->superuser()->create();
+        $userResponsible = User::factory()->create();
 
         $asset = Asset::factory()->create();
         $supplier = Supplier::factory()->create();
@@ -43,6 +44,7 @@ class CreateMaintenanceTest extends TestCase
                 'cost' => '100.00',
                 'image' => UploadedFile::fake()->image('test_image.png'),
                 'notes' => 'A note',
+                'user_responsible_id' => $userResponsible->id,
             ])
             ->assertOk()
             ->assertStatus(200);
@@ -64,6 +66,7 @@ class CreateMaintenanceTest extends TestCase
             'notes' => 'A note',
             'image' => $maintenance->image,
             'created_by' => $actor->id,
+            'user_responsible_id' => $userResponsible->id,
         ]);
 
         $this->assertHasTheseActionLogs($maintenance, ['create']);

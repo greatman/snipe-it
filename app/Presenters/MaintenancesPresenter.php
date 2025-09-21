@@ -95,6 +95,12 @@ class MaintenancesPresenter extends Presenter
                 'title' => trans('general.location'),
                 'formatter' => 'locationsLinkObjFormatter',
             ], [
+                'field' => 'user_responsible',
+                'searchable' => 'true',
+                'sortable' => 'true',
+                'title' => trans('admin/maintenances/table.user_responsible'),
+                'formatter' => 'usersLinkObjFormatter',
+            ], [
                 'field' => 'asset_maintenance_type',
                 'searchable' => true,
                 'sortable' => true,

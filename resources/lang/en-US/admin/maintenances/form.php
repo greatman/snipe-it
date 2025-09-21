@@ -11,5 +11,6 @@
         'asset_maintenance_time' => 'Asset Maintenance Time (in days)',
         'notes'                  => 'Notes',
         'update'                 => 'Update Asset Maintenance',
-        'create'                 => 'Create Asset Maintenance'
+        'create'                 => 'Create Asset Maintenance',
+        'user_responsible'       => 'User responsible',
     ];

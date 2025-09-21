@@ -24,7 +24,7 @@ class MaintenancesTransformer
     public function transformMaintenance(Maintenance $assetmaintenance)
     {
         $array = [
-            'id'            => (int) $assetmaintenance->id,
+            'id'  => (int) $assetmaintenance->id,
             'asset' => ($assetmaintenance->asset) ? [
                 'id' => (int) $assetmaintenance->asset->id,
                 'name'=> ($assetmaintenance->asset->name) ? e($assetmaintenance->asset->name) : null,
@@ -82,6 +82,17 @@ class MaintenancesTransformer
             'created_at' => Helper::getFormattedDateObject($assetmaintenance->created_at, 'datetime'),
             'updated_at' => Helper::getFormattedDateObject($assetmaintenance->updated_at, 'datetime'),
             'is_warranty'=> $assetmaintenance->is_warranty,
+            'user_responsible' => ($assetmaintenance->userResponsible) ? [
+                'id' => (int) $assetmaintenance->userResponsible->id,
+                'username' => e($assetmaintenance->userResponsible->username),
+                'name' => e($assetmaintenance->userResponsible->getFullNameAttribute()),
+                'first_name'=> e($assetmaintenance->userResponsible->first_name),
+                'last_name'=> ($assetmaintenance->userResponsible->last_name) ? e($assetmaintenance->userResponsible->last_name) : null,
+                'email'=> ($assetmaintenance->userResponsible->email) ? e($assetmaintenance->userResponsible->email) : null,
+                'employee_number' =>  ($assetmaintenance->userResponsible->employee_num) ? e($assetmaintenance->userResponsible->employee_num) : null,
+                'jobtitle' => $assetmaintenance->userResponsible->jobtitle ? e($assetmaintenance->userResponsible->jobtitle) : null,
+                'type' => 'user',
+            ] : null,
 
         ];
 

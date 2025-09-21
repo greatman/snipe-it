@@ -137,7 +137,16 @@
                   </a>
               </li>
           @endif
-
+      <li>
+          <a href="#maintenancecausedby" data-toggle="tab">
+            <span class="hidden-lg hidden-md">
+            <x-icon type="maintenancecausedby" class="fa-2x" />
+            </span>
+                  <span class="hidden-xs hidden-sm">{{ trans('admin/users/general.maintenance_caused_by_user') }}
+              {!! ($user->maintenanceCausedBy->count() > 0 ) ? '<span class="badge badge-secondary">'.number_format($user->maintenanceCausedBy->count()).'</span>' : '' !!}
+            </span>
+          </a>
+      </li>
 
       @can('update', $user)
           <li class="dropdown pull-right">
@@ -1110,6 +1119,25 @@
               "fileName": "export-users-{{ date('Y-m-d') }}",
               "ignoreColumn": ["actions","image","change","checkbox","checkincheckout","icon"]
               }'>
+              </table>
+
+          </div>
+          <div class="tab-pane" id="maintenancecausedby">
+
+              <table
+                      data-columns="{{ \App\Presenters\MaintenancesPresenter::dataTableLayout() }}"
+                      data-cookie-id-table="maintenancesTable"
+                      data-side-pagination="server"
+                      data-show-footer="true"
+                      id="maintenancesTable"
+                      data-buttons="maintenanceButtons"
+                      class="table table-striped snipe-table"
+                      data-url="{{route('api.maintenances.index', ['user_responsible_id' => $user->id]) }}"
+                      data-export-options='{
+                "fileName": "export-maintenances-{{ date('Y-m-d') }}",
+              "ignoreColumn": ["actions","image","change","checkbox","checkincheckout","icon"]
+              }'>
+
               </table>
 
           </div>

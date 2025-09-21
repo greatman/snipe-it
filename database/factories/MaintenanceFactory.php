@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Asset;
 use App\Models\Maintenance;
 use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MaintenanceFactory extends Factory
@@ -31,6 +32,7 @@ class MaintenanceFactory extends Factory
             'start_date' => $this->faker->date(),
             'is_warranty' => $this->faker->boolean(),
             'notes' => $this->faker->paragraph(),
+            'user_responsible_id' => User::factory(),
         ];
     }
 }

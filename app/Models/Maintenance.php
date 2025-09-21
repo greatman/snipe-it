@@ -38,6 +38,7 @@ class Maintenance extends SnipeModel implements ICompanyableChild
         'completion_date'        => 'date_format:Y-m-d|nullable|after_or_equal:start_date',
         'notes'                  => 'string|nullable',
         'cost'                   =>  'numeric|nullable|gte:0|max:99999999999999999.99',
+        'user_responsible_id'    => 'nullable|integer'
     ];
 
 
@@ -57,6 +58,7 @@ class Maintenance extends SnipeModel implements ICompanyableChild
         'asset_maintenance_time',
         'notes',
         'cost',
+        'user_responsible_id',
     ];
 
     use Searchable;
@@ -87,6 +89,7 @@ class Maintenance extends SnipeModel implements ICompanyableChild
         'asset.supplier' => ['name'],
         'asset.assetstatus' => ['name'],
         'supplier' => ['name'],
+        'user_responsible' => ['first_name', 'last_name'],
     ];
 
     public function getCompanyableParents()
@@ -185,7 +188,15 @@ class Maintenance extends SnipeModel implements ICompanyableChild
             ->orderBy('created_at', 'desc')
             ->withTrashed();
     }
-    
+
+    /**
+     * Get the user responsible for this maintenance.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function userResponsible() {
+        return $this->belongsTo(\App\Models\User::class, 'user_responsible_id')->withTrashed();
+    }
 
     /**
      * Get the admin who created the maintenance
